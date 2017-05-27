@@ -6,14 +6,40 @@
 [root@localhost ~]# cat /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-192.168.56.21	guiyang.dataforum.org
+192.168.56.21    guiyang.dataforum.org
 
 
 [root@localhost ~]# cat /etc/hostname 
 guiyang.dataforum.org
 ```
 
-**2.Install  x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
+**2.Configure kernel parameters**
+
+```
+[root@localhost ~]# cat /etc/sysctl.conf 
+# System default settings live in /usr/lib/sysctl.d/00-system.conf.
+# To override those settings, enter new settings here, or in an /etc/sysctl.d/<name>.conf file
+#
+# For more information, see sysctl.conf(5) and sysctl.d(5).
+fs.file-max = 6815744
+kernel.sem = 250 32000 100 128
+kernel.shmmni = 4096
+kernel.shmall = 1073741824
+kernel.shmmax = 4398046511104
+kernel.panic_on_oops = 1
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048576
+net.ipv4.conf.all.rp_filter = 2
+net.ipv4.conf.default.rp_filter = 2
+fs.aio-max-nr = 1048576
+net.ipv4.ip_local_port_range = 9000 65500
+
+
+```
+
+**3.Install  x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
 
 ```
 binutils-2.23.52.0.1-12.el7 (x86_64)
