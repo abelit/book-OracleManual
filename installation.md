@@ -1,6 +1,12 @@
 # Oracle Database 12c Release 2 \(12.2\) Installation On Oracle Linux 6 \(OL6\) and 7 \(OL7\)
 
-1. ** x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
+
+
+
+
+
+
+1. **Install  x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
 
 ```
 binutils-2.23.52.0.1-12.el7 (x86_64)
