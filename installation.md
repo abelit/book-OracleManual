@@ -53,6 +53,17 @@ net.ipv4.conf.all.rp_filter = 2
 net.ipv4.conf.default.rp_filter = 2
 fs.aio-max-nr = 1048576
 net.ipv4.ip_local_port_range = 9000 65500
+
+
+[root@localhost ~]# cat /etc/security/limits.d/oracle-database-server-12cR2-preinstall.conf
+oracle   soft   nofile    1024
+oracle   hard   nofile    65536
+oracle   soft   nproc    16384
+oracle   hard   nproc    16384
+oracle   soft   stack    10240
+oracle   hard   stack    32768
+oracle   hard   memlock    134217728
+oracle   soft   memlock    134217728
 ```
 
 **3.Install  x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
