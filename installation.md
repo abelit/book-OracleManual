@@ -120,6 +120,14 @@ groupadd -g 54325 dgdba
 #groupadd -g 54330 racdba
 
 useradd -u 54321 -g oinstall -G dba,oper,backupdba,dgdba oracle
+
+
+[root@localhost ~]# passwd oracle
+Changing password for user oracle.
+New password: 
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password: 
+passwd: all authentication tokens updated successfully.
 ```
 
 
