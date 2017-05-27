@@ -2,6 +2,17 @@
 
 **1.Configure hostname and hosts**
 
+```
+[root@localhost ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.56.21	guiyang.dataforum.org
+
+
+[root@localhost ~]# cat /etc/hostname 
+guiyang.dataforum.org
+```
+
 **2.Install  x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
 
 ```
