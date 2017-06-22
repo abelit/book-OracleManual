@@ -215,7 +215,7 @@ oracle              hard    nofile  65536
 oracle              soft    stack   10240
 ```
 
-**3.Install  x86-64 Red Hat Enterprise Linux 7 Minimum Operating System Requirements**
+**3.Install  x86-64 Red Hat Enterprise Linux 6.X Minimum Operating System Requirements**
 
 ```
 binutils-2.23.52.0.1-12.el7 (x86_64)
