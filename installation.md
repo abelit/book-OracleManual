@@ -328,7 +328,7 @@ chmod -R 775 /u01
 **7.Set Oracle Environment**
 
 ```
-# Oracle Settings
+# Oracle Env
 TMP=/tmp; export TMP
 TMPDIR=$TMP; export TMPDIR
 
