@@ -241,6 +241,37 @@ libaio-devel-0.3.107-10.el6 (x86_64)
 libaio-devel-0.3.107-10.el6.i686
 make-3.81-19.el6
 sysstat-9.0.4-11.el6 (x86_64)
+
+
+
+
+yum install -y binutils-2*x86_64*
+yum install -y glibc-2*x86_64* nss-softokn-freebl-3*x86_64*
+yum install -y glibc-2*i686* nss-softokn-freebl-3*i686*
+yum install -y compat-libstdc++-33*x86_64*
+yum install -y glibc-common-2*x86_64*
+yum install -y glibc-devel-2*x86_64*
+yum install -y glibc-devel-2*i686*
+yum install -y glibc-headers-2*x86_64*
+yum install -y elfutils-libelf-0*x86_64*
+yum install -y elfutils-libelf-devel-0*x86_64*
+yum install -y gcc-4*x86_64*
+yum install -y gcc-c++-4*x86_64*
+yum install -y ksh-*x86_64*
+yum install -y libaio-0*x86_64*
+yum install -y libaio-devel-0*x86_64*
+yum install -y libaio-0*i686*
+yum install -y libaio-devel-0*i686*
+yum install -y libgcc-4*x86_64*
+yum install -y libgcc-4*i686*
+yum install -y libstdc++-4*x86_64*
+yum install -y libstdc++-4*i686*
+yum install -y libstdc++-devel-4*x86_64*
+yum install -y make-3.81*x86_64*
+yum install -y numactl-devel-2*x86_64*
+yum install -y sysstat-9*x86_64*
+yum install -y compat-libstdc++-33*i686*
+yum install -y compat-libcap*
 ```
 
 **4.Create the new groups and users**
