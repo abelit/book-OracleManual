@@ -1,4 +1,4 @@
-# Oracle Database 12c Release 2 \(12.2\) Installation On Oracle Linux 6 \(OL6\) and 7 \(OL7\)
+# Oracle Database 12c Release 2 \(12.2\) Installation On RHEL 7.X
 
 **1.Configure hostname and hosts**
 
@@ -150,6 +150,8 @@ SELINUXTYPE=targeted
 
 [root@localhost ~]# setenforce Permissive
 ```
+
+
 
 
 
