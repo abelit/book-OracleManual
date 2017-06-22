@@ -325,5 +325,25 @@ chown -R oracle:oinstall /u01
 chmod -R 775 /u01
 ```
 
+**7.Set Oracle Environment**
+
+```
+# Oracle Settings
+TMP=/tmp; export TMP
+TMPDIR=$TMP; export TMPDIR
+
+export ORACLE_HOSTNAME=gzsxxzx
+export ORACLE_UNQNAME=gzsorcl
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1
+export ORACLE_SID=gzsorcl
+
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH
+```
+
 
 
