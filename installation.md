@@ -207,7 +207,7 @@ fs.aio-max-nr = 1048576
 net.ipv4.ip_local_port_range = 9000 65500
 
 
-[root@localhost ~]# cat /etc/security/limits.d/oracle-database-server-12cR2-preinstall.conf
+[root@localhost ~]# cat /etc/security/limits.conf
 oracle              soft    nproc   16384
 oracle              hard    nproc   16384
 oracle              soft    nofile  4096
