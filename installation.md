@@ -151,10 +151,6 @@ SELINUXTYPE=targeted
 [root@localhost ~]# setenforce Permissive
 ```
 
-
-
-
-
 # Oracle Database 11G Release 2 \(11.2\) Installation On RHEL 6.X X86-64
 
 **1.Configure hostname and hosts**
@@ -178,20 +174,19 @@ guiyang.dataforum.org
 # To override those settings, enter new settings here, or in an /etc/sysctl.d/<name>.conf file
 #
 # For more information, see sysctl.conf(5) and sysctl.d(5).
-fs.file-max = 6815744
-kernel.sem = 250 32000 100 128
-kernel.shmmni = 4096
-kernel.shmall = 1073741824
-kernel.shmmax = 4398046511104
-kernel.panic_on_oops = 1
-net.core.rmem_default = 262144
-net.core.rmem_max = 4194304
-net.core.wmem_default = 262144
-net.core.wmem_max = 1048576
-net.ipv4.conf.all.rp_filter = 2
-net.ipv4.conf.default.rp_filter = 2
+fs.suid_dumpable = 1
 fs.aio-max-nr = 1048576
+fs.file-max = 6815744
+kernel.shmall = 2097152
+kernel.shmmax = 536870912
+kernel.shmmni = 4096
+# semaphores: semmsl, semmns, semopm, semmni
+kernel.sem = 250 32000 100 128
 net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default=262144
+net.core.rmem_max=4194304
+net.core.wmem_default=262144
+net.core.wmem_max=1048586
 
 
 
