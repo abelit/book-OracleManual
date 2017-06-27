@@ -76,7 +76,7 @@ SYS   DUMP           /data/dump_dir
 
 **服务器信息**
 
-**IP:** 10.10.10.41
+**IP:** 10.10.10.44
 
 **User:** root
 
