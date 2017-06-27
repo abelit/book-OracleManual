@@ -96,7 +96,7 @@ SYS   DUMP           /data/dump_dir
 0 1 * * * su - oracle -c "/u01/app/oracle/exp_bak/exp_backup.sh > /u01/app/oracle/exp_bak/backup_exp.log 2>&1"
 ```
 
-**数据库信息**
+* **数据库信息**
 
 **oracle\_version: **10.2.0.4.0
 
