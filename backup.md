@@ -28,6 +28,15 @@
 
 **backup\_method: **datapump
 
+**backup\_directory: **
+
+```
+SQL> select * from dba_directories;
+OWNER DIRECTORY_NAME	   DIRECTORY_PATH
+----- -------------------- --------------------------------------------------
+SYS   DUMP		   /data/dump_dir
+```
+
 **backup\_script: **
 
     #!/bin/sh
