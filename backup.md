@@ -33,7 +33,7 @@
 **backup\_schemas: **
 
 ```
-
+SQL> select username from dba_users where account_status='OPEN' order by username;
 ```
 
 **backup\_directory: **
