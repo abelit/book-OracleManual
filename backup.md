@@ -28,6 +28,8 @@
 
 **oracle\_version: **10.2.0.4.0
 
+oracle\_character
+
 **backup\_method: **datapump by schema
 
 **backup\_schemas: **
