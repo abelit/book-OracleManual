@@ -52,7 +52,7 @@
 
 **User:** root
 
-**Password:** sxxzx.0851
+**Password:** xxzx@123
 
 ---
 
@@ -72,5 +72,5 @@
 
 **User:** root
 
-**Password:** sxxzx.0851
+**Password:** xxzx@123
 
