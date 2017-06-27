@@ -26,7 +26,7 @@
 
 * **数据库信息**
 
-**backup\_method: **datapump
+**backup\_method: **datapump by schema
 
 **backup\_directory: **
 
