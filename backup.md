@@ -20,6 +20,10 @@
 
 **backup\_method: **datapump
 
+**backup\_script: **
+
+
+
 #### 1.3 站群数据库
 
 **IP:** 10.10.10.44
