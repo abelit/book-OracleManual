@@ -26,6 +26,8 @@
 
 * **数据库信息**
 
+**oracle\_version: **10.2.0.4.0
+
 **backup\_method: **datapump by schema
 
 **backup\_schemas: **
