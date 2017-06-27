@@ -22,8 +22,6 @@
 
 **backup\_script: **
 
-
-
 #### 1.3 站群数据库
 
 **IP:** 10.10.10.44
@@ -31,6 +29,10 @@
 **User:** root
 
 **Password:** oracle2014
+
+**backup\_method: **datapump
+
+**backup\_script: **
 
 #### 1.4 站群数据库（备份）
 
