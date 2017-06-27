@@ -78,6 +78,10 @@
 
 **Password:** visionit
 
+**backup\_method: **datapump
+
+**backup\_script: **
+
 #### 3.2 协同办公数据库（备份）
 
 **IP:** 59.215.241.27
