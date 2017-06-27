@@ -32,6 +32,10 @@
 
 ```
 SQL> select userenv('LANGUAGE') from dual;
+
+USERENV('LANGUAGE')
+----------------------------------------------------
+AMERICAN_AMERICA.AL32UTF8
 ```
 
 **backup\_method: **datapump by schema
