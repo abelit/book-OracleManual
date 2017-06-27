@@ -34,6 +34,20 @@
 
 ```
 SQL> select username from dba_users where account_status='OPEN' order by username;
+
+JCMS25GZ
+JCMSGZXX
+JGETGZXX
+JIEPGZ
+JISGZXX
+JSEARCHGZXX
+LC
+LM
+TYSP
+TYSP_SYSTEM
+VCGZXX
+WEBSITE
+WYCHEN
 ```
 
 **backup\_directory: **
