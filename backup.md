@@ -28,7 +28,11 @@
 
 **oracle\_version: **10.2.0.4.0
 
-oracle\_character
+**oracle\_character: **
+
+```
+SQL> select userenv('LANGUAGE') from dual;
+```
 
 **backup\_method: **datapump by schema
 
