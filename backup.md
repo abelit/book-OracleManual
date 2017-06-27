@@ -74,13 +74,13 @@ SYS   DUMP           /data/dump_dir
 
 #### 1.3 站群数据库
 
-**服务器信息**
+* **服务器信息**
 
 **IP:** 10.10.10.44
 
 **User:** root
 
-**Password:** gzxx@323\#
+**Password:** oracle2014
 
 * **数据库信息**
 
