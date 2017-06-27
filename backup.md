@@ -116,7 +116,7 @@ AMERICAN_AMERICA.AL32UTF8
 
 ```
 SQL> select username from dba_users where account_status='OPEN' order by username;
-
+JCMS1
 JCMS2
 JCMS25GZ
 JCMSDOWN
