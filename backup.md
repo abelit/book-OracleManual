@@ -34,6 +34,8 @@
 
 ```
 SQL> select username from dba_users where account_status='OPEN' order by username;
+
+
 ```
 
 **backup\_directory: **
@@ -67,8 +69,19 @@ SYS   DUMP           /data/dump_dir
     DUMP_DIR=$LOG_DIR
     FILE_NAME=`date +%Y%m%d%H%M`
     PARA=$1
-    ALL_USERS="JCMS2 JCMS1 TYSP_SYSTE TYSP VCGZXX JISGZXX JSEARCHGZXX JGETGZXX JIEPGZ JCMSDOWN JCMS25GZ LM WEBSITE LC JCMSGZ
-    XX"
+    ALL_USERS="JCMS25GZ
+    JCMSGZXX
+    JGETGZXX
+    JIEPGZ
+    JISGZXX
+    JSEARCHGZXX
+    LC
+    LM
+    TYSP
+    TYSP_SYSTEM
+    VCGZXX
+    WEBSITE
+    WYCHEN"
 
     #expdp funciton
     function Backup (){
