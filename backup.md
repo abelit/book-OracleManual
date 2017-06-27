@@ -46,9 +46,11 @@
 
 **Password:** sxxzx.0851
 
-
-
 #### 2.2 站群数据库备份
 
+**IP:** 59.215.244.67/68
 
+**User:** root
+
+**Password:** sxxzx.0851
 
