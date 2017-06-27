@@ -2,7 +2,7 @@
 
 ### 1. 站群数据库
 
-#### 1.1 站群数据库（前台）
+#### 1.1 站群服务器（前台）
 
 **IP:** 10.10.10.42
 
@@ -34,8 +34,6 @@
 
 ```
 SQL> select username from dba_users where account_status='OPEN' order by username;
-
-
 ```
 
 **backup\_directory: **
