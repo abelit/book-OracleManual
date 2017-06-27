@@ -32,5 +32,5 @@
 
 **User:** root
 
-**Password:**
+**Password: **
 
