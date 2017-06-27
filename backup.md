@@ -28,7 +28,7 @@
 
 **User:** root
 
-oracle2014
+**Password:** oracle2014
 
 ----备份服务器 10.10.10.40
 
