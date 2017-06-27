@@ -10,9 +10,7 @@
 
 **Password: **gzxx@webfwq\#3012
 
-**backup\_method: **datapump
 
-**backup\_script: **
 
 #### **1.2 站群数据库（后台）**
 
