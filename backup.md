@@ -54,6 +54,10 @@
 
 **Password:** sxxzx.0851
 
+**backup\_method: **datapump
+
+**backup\_script: **
+
 #### 2.2 小机数据库（备份）
 
 **IP:** 59.215.241.27
