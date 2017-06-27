@@ -44,5 +44,5 @@
 
 **User:** root
 
-**Password: sxxzx.0851**
+**Password:** sxxzx.0851
 
