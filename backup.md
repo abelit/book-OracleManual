@@ -10,8 +10,6 @@
 
 **Password: **gzxx@webfwq\#3012
 
-
-
 #### **1.2 站群数据库（后台）**
 
 * **服务器信息**
@@ -70,71 +68,71 @@ SYS   DUMP           /data/dump_dir
 
 **backup\_script: **
 
-    #!/bin/sh
-    #Function: backup database with expdp by schemas
-    #Usage: crontab on linux/Unix
-    #Author: Abelit
-    #Created: 2017-05-25
+```
 
-    #Set environment variable
-    export ORACLE_BASE=/data/oracle
-    export ORACLE_HOME=/data/oracle/product/10.2
-    export ORACLE_SID=gzxx
-    export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
-    export ORACLE_BIN=$ORACLE_HOME/bin/
-    export PATH=$PATH:ORACLE_BIN
-
-    #Define variable and parameter
-    LOG_DIR=/data/dump_dir
-    DUMP_DIR=$LOG_DIR
-    FILE_NAME=`date +%Y%m%d%H%M`
-    PARA=$1
-    ALL_USERS="JCMS25GZ
-    JCMSGZXX
-    JGETGZXX
-    JIEPGZ
-    JISGZXX
-    JSEARCHGZXX
-    LC
-    LM
-    TYSP
-    TYSP_SYSTEM
-    VCGZXX
-    WEBSITE
-    WYCHEN"
-
-    #expdp funciton
-    function Backup (){
-        echo "Expdp Start Time: `date` OWNER: $OWNER">>$LOG_DIR/expdp.log
-        expdp \'/ as sysdba\' directory=DUMP dumpfile=$OWNER.$FILE_NAME.dump logfile=$OWNER.$FILE_NAME.log schemas=$OWNER
-        echo "Expdp Finish Time: `date` OWNER: $OWNER">>$LOG_DIR/expdp.log
-    }
-
-    if [ "$PARA" = "all" ];then
-        for OWNER  in $ALL_USERS
-        do
-            Backup
-        done
-    else
-        OWNER=$PARA
-        Backup
-    fi
-
-    # Delete expired files
-    find $LOG_DIR -name "*.dump" -mtime +15 -exec rm {} \;
-    find $LOG_DIR -name "*.log" -mtime +15 -exec rm {} \;
+```
 
 #### 1.3 站群数据库
 
-**IP:** 10.10.10.44
+**服务器信息**
+
+**IP:** 10.10.10.41
 
 **User:** root
 
-**Password:** oracle2014
+**Password:** gzxx@323\#
 
-**backup\_method: **datapump
+* **数据库信息**
+
+**oracle\_version: **10.2.0.4.0
+
+**oracle\_character: **
+
+```
+SQL> select userenv('LANGUAGE') from dual;
+
+USERENV('LANGUAGE')
+----------------------------------------------------
+AMERICAN_AMERICA.AL32UTF8
+```
+
+**backup\_method: **datapump by schema
+
+**backup\_schemas: **
+
+```
+SQL> select username from dba_users where account_status='OPEN' order by username;
+
+JCMS25GZ
+JCMSGZXX
+JGETGZXX
+JIEPGZ
+JISGZXX
+JSEARCHGZXX
+LC
+LM
+TYSP
+TYSP_SYSTEM
+VCGZXX
+WEBSITE
+WYCHEN
+```
+
+**backup\_directory: **
+
+```
+SQL> select * from dba_directories;
+
+OWNER DIRECTORY_NAME       DIRECTORY_PATH
+----- -------------------- --------------------------------------------------
+SYS   DUMP           /data/dump_dir
+```
 
 **backup\_script: **
+
+```
+
+```
 
 #### 1.4 站群数据库（备份）
 
