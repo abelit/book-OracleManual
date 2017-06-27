@@ -75,9 +75,133 @@ SYS   DUMP           /data/dump_dir
 
 **backup\_script: **
 
-```
+    #!/bin/bash
+    #Function: backup and restore database with datapump by schemas
+    #Usage: crontab on linux/Unix
+    #Author: Abelit
+    #Company: Guizhou Vision IT Co., Ltd.
+    #Created: 2017-06-26
 
-```
+    #Set environment variable
+    export ORACLE_BASE=/data/oracle
+    export ORACLE_HOME=/data/oracle/product/10.2
+    export ORACLE_SID=gzxx
+    export NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+    export ORACLE_BIN=$ORACLE_HOME/bin/
+    export PATH=$PATH:ORACLE_BIN
+
+    #Define variable and parameter
+    # DUMP_DIR_NAME is the directory of datapump that need.
+    DBLINK=
+    DUMP_DIR_NAME=DUMP
+    DUMP_DIR=/data/dump_dir
+    FILE_SUFFIX=`date +%Y%m%d%H%M`
+
+    # Variable for this shell
+    PARA=$2
+
+    # List all schemas need to backup and configure 'ALL_USERS' here.
+    ALL_USERS="JCMS25GZ JCMSGZXX JGETGZXX JIEPGZ JISGZXX JSEARCHGZXX LC LM TYSP TYSP_SYSTEM VCGZXX WEBSITE WYCHEN"
+
+    ALLINONE="JCMS25GZ,JCMSGZXX,JGETGZXX,JIEPGZ,JISGZXX,JSEARCHGZXX,LC,LM,TYSP,TYSP_SYSTEM,VCGZXX,WEBSITE,WYCHEN"
+
+    # BackupSchema funciton
+    function BackupSchema (){
+        echo "BackupSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+        expdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=${OWNER}_${FILE_SUFFIX}.dump logfile=${OWNER}_${FILE_SU
+    FFIX}.log schemas=$OWNER
+        echo "BackupSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    }
+
+    # BackupSchema funciton
+    function BackupAllSchema (){
+        echo "BackupSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+        expdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=AllSchemas_${FILE_SUFFIX}.dump logfile=AllSchemas_${FILE_SU
+    FFIX}.log schemas=$OWNER
+        echo "BackupSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    }
+
+    # BackupDatabase funciton
+    function BackupDatabase (){
+        echo "BackupDatabase Start Time: `date` " >> $DUMP_DIR/datapump.log
+        expdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=database_${FILE_SUFFIX}.dump logfile=database_${FILE_SU
+    FFIX}.log full=y
+        echo "BackupDatabase Finish Time: `date` " >> $DUMP_DIR/datapump.log
+    }
+
+    # RestoreSchema funciton
+    function RestoreSchema (){
+        echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+        impdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=${OWNER}_${FILE_SUFFIX}.dump logfile=${OWNER}_${FILE_SU
+    FFIX}.log schemas=$OWNER remap_schema=$OWNER:$OWNER
+        echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    }
+    # RestoreSchema funciton
+    function RestoreAllSchema (){
+        echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+        impdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=AllSchemas_${FILE_SUFFIX}.dump logfile=AllSchemas_${FIL
+    E_SUFFIX}.log schemas=$OWNER
+        echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    }
+
+    # RestoreDatabase funciton
+    function RestoreDatabase (){
+        echo "RestoreDatabase Start Time: `date` " >> $DUMP_DIR/datapump.log
+        impdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=database_${FILE_SUFFIX}.dump logfile=database_${FILE_SU
+    FFIX}.log full=y
+        echo "RestoreDatabase Finish Time: `date` " >> $DUMP_DIR/datapump.log
+    }
+
+    # RestoreSchema funciton
+    function RestoreSchemaRemote (){
+        echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+        impdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=${OWNER}_${FILE_SUFFIX}.dump logfile=${OWNER}_${FILE_SU
+    FFIX}.log network_link=$DBLINK schemas=$OWNER remap_schema=$OWNER:$OWNER
+        echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    }
+
+    # RestoreDatabase funciton
+    function RestoreDatabaseRemote (){
+        echo "RestoreDatabase Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+        impdp \'sys \/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=${OWNER}_${FILE_SUFFIX}.dump logfile=${OWNER}_${FILE_SU
+    FFIX}.log network_link=$DBLINK full=y
+        echo "RestoreDatabase Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    }
+
+    if [ "$1" = "backup" ]; then
+        if [ "$PARA" = "all" ]; then
+            for OWNER  in $ALL_USERS
+            do
+                BackupSchema
+            done
+        elif [ "$PARA" = "allinone" ]; then
+            OWNER=$ALLINONE
+            BackupAllSchema
+        else
+            OWNER=$PARA
+            BackupSchema
+        fi
+    elif [ "$1" = "restore" ]; then
+        if [ "$PARA" = "all" ]; then
+            for OWNER  in $ALL_USERS
+            do
+                RestoreSchema
+            done
+        elif [ "$PARA" = "allinone" ]; then
+            OWNER=$ALLINONE
+            RestoreAllSchema
+        else
+            OWNER=$PARA
+            RestoreSchema
+        fi
+    else
+        echo "Invalid parameters!"
+    fi
+
+    # Delete expired files
+    find $DUMP_DIR -name "*.dump" -mtime +15 -exec rm {} \;
+    find $DUMP_DIR -name "*.log" -mtime +15 -exec rm {} \;
+
 
 #### 1.3 站群数据库
 
