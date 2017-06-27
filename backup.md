@@ -20,7 +20,15 @@
 
 **Password:** gzxx@323\#
 
-* **数据库信息**
+**crontab: **
+
+```
+[root@localhost ~]# crontab -l
+0 1 * * * su - oracle -c "/data/oracledba/MigrateByDatapump.sh backup allinone"
+
+```
+
+**数据库信息**
 
 **oracle\_version: **10.2.0.4.0
 
