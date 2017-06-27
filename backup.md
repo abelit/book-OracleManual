@@ -98,7 +98,7 @@ SYS   DUMP           /data/dump_dir
 
 * **数据库信息**
 
-**oracle\_version: **10.2.0.4.0
+**oracle\_version: **11.2.0.3.0
 
 **oracle\_character: **
 
