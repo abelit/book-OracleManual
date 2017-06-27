@@ -66,3 +66,13 @@
 
 **Password:** sxxzx.0851
 
+
+
+#### 数据库（备份）
+
+**IP:** 59.215.241.27
+
+**User:** root
+
+**Password:** sxxzx.0851
+
