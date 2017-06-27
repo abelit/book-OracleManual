@@ -8,7 +8,7 @@
 
 **User:** root
 
-**Password: **gzxx@ora10\#
+**Password: **gzxx@webfwq\#3012
 
 #### **1.2 站群数据库（后台）**
 
