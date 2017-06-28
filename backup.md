@@ -159,13 +159,66 @@ SYS   DUMP           /data/dump_dir
 
 #### 2.1 小机数据库
 
-**IP:** 59.215.244.67/68
+**服务器信息**
+
+**IP:** 10.10.10.41
 
 **User:** root
 
-**Password:** sxxzx.0851
+**Password:** gzxx@323\#
 
-**backup\_method: **datapump
+**crontab: **
+
+```
+[root@localhost ~]# crontab -l
+0 1 * * * su - oracle -c "/data/oracledba/MigrateByDatapump.sh backup allinone"
+```
+
+* **数据库信息**
+
+**oracle\_version: **10.2.0.4.0
+
+**oracle\_character: **
+
+```
+SQL> select userenv('LANGUAGE') from dual;
+
+USERENV('LANGUAGE')
+----------------------------------------------------
+AMERICAN_AMERICA.AL32UTF8
+```
+
+**backup\_method: **datapump by schema
+
+**backup\_schemas: **
+
+```
+SQL> select username from dba_users where account_status='OPEN' order by username;
+
+JCMS25GZ
+JCMSGZXX
+JGETGZXX
+JIEPGZ
+JISGZXX
+JSEARCHGZXX
+LC
+LM
+TYSP
+TYSP_SYSTEM
+VCGZXX
+WEBSITE
+WYCHEN
+```
+
+**backup\_directory: **
+
+```
+SQL> select * from dba_directories;
+
+OWNER DIRECTORY_NAME       DIRECTORY_PATH
+----- -------------------- --------------------------------------------------
+SYS   DUMP           /data/dump_dir
+```
 
 **backup\_script: **
 
