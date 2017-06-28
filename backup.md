@@ -200,6 +200,22 @@ ksh: There is not enough space in the file system.
 65503232
 ```
 
+**Disk: **
+
+```
+# df
+ksh: There is not enough space in the file system.
+Filesystem    512-blocks      Free %Used    Iused %Iused Mounted on
+/dev/hd4        10485760         0  100%    53486    86% /
+/dev/hd2        10485760   3745992   65%    53704    12% /usr
+/dev/hd9var     10485760   9182216   13%     8310     1% /var
+/dev/hd3        19398656   6011768   70%    14390     3% /tmp
+/dev/hd1        10485760   6912264   35%     2019     1% /home
+/proc                  -         -    -         -     -  /proc
+/dev/hd10opt    10485760   9732408    8%    11393     2% /opt
+/dev/fslv00    189792256  10875968   95%   228217    12% /oracle
+```
+
 **IP:** 59.215.244.67/68
 
 **User:** root
