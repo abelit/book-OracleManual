@@ -256,44 +256,9 @@ Filesystem    512-blocks      Free %Used    Iused %Iused Mounted on
 
 ```
 # crontab -l
-# @(#)08        1.15.1.3  src/bos/usr/sbin/cron/root, cmdcntl, bos610 2/11/94 17:19:47
-# IBM_PROLOG_BEGIN_TAG 
-# This is an automatically generated prolog. 
-#  
-# bos610 src/bos/usr/sbin/cron/root 1.15.1.3 
-#  
-# Licensed Materials - Property of IBM 
-#  
-# COPYRIGHT International Business Machines Corp. 1989,1994 
-# All Rights Reserved 
-#  
-# US Government Users Restricted Rights - Use, duplication or 
-# disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
-#  
-# IBM_PROLOG_END_TAG 
-#
-# COMPONENT_NAME: (CMDCNTL) commands needed for basic system needs
-#
-# FUNCTIONS: 
-#
-# ORIGINS: 27
-#
-# (C) COPYRIGHT International Business Machines Corp. 1989,1994
-# All Rights Reserved
-# Licensed Materials - Property of IBM
-#
-# US Government Users Restricted Rights - Use, duplication or
-# disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
-#
-#0 3 * * * /usr/sbin/skulker
-#45 2 * * 0 /usr/lib/spell/compress
-#45 23 * * * ulimit 5000; /usr/lib/smdemon.cleanu > /dev/null
-0 11 * * * /usr/bin/errclear -d S,O 30
-0 12 * * * /usr/bin/errclear -d H 90
-0,5,10,15,20,25,30,35,40,45,50,55 * * * * /usr/sbin/dumpctrl -k >/dev/null 2>/dev/null
-0 15 * * *  /usr/lib/ras/dumpcheck >/dev/null 2>&1
-55 23 * * * /var/perf/pm/bin/pmcfg  >/dev/null 2>&1     #Enable PM Data Collection
-0 1 * * * su - oracle -c "/home/oracle/exp_bak/backup_exp.sh >> /home/oracle/exp_bak/backup_exp.log 2>&1"
+
+0 1 * * * su - oracle -c "/home/oracle/exp_bak/MigrateByDatapump.sh backup allinone"
+
 ```
 
 * **数据库信息**
@@ -344,6 +309,191 @@ SYS   DUMP           /data/dump_dir
 
 **backup\_script: **
 
+```
+#!/bin/bash
+#Function: backup and restore database with datapump by schemas
+#Usage: crontab on linux/Unix  0 1 * * * su - oracle -c "/home/oracle/exp_bak/MigrateByDatapump.sh backup allinone"
+#Author: Abelit
+#Company: Guizhou Vision IT Co., Ltd.
+#Created: 2017-06-26
+
+############################################## Configuration Start ##########################################################################
+#Set environment variable
+export ORACLE_BASE=/oracle/11.4/oracle
+export ORACLE_HOME=$ORACLE_BASE/11g
+
+export ORACLE_BIN=$ORACLE_HOME/bin/
+export PATH=$PATH:$ORACLE_BIN
+export ORACLE_SID=orcl1
+export NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+
+#Define variable and parameter
+# If you want to import the objects from remote oracle database server, please create database link
+# on the database and confifure database link name here e.a. 'DB_LINK'.
+DB_LINK=
+# DUMP_DIR_NAME is the directory of datapump that need.
+DUMP_DIR_NAME=backup
+DUMP_DIR=/oracle/expdp
+FILE_SUFFIX=${ORACLE_SID}_`date +%Y%m%d%H%M`
+
+# Set the time of expired backups
+EXPIRED_TIME=1
+
+# Set the numbers of parallel of datapump.
+PARALLE_NUM=5
+# List all schemas need to backup and configure 'ALL_SCHEMA' here.
+ALL_SCHEMA="A8,A8OLD,AXS,DC,ETL,GZIC_SJJH,GZ_FGW,IM,IM_NEW,ORGINFO,SGS,SMARTBI,XYGS,XYGS_FY,XYGS_GAT,XY_DAJ_ZS,ZR_ISP"
+
+############################################## Configuration End ##########################################################################
+
+# BackupSchema funciton
+function BackupSchema (){
+    echo "BackupSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    expdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=${OWNER}_${FILE_SUFFIX}.dump logfile=${OWNER}_${FILE_SUFFIX}.log schemas=$OWNER $PARALLEL
+    echo "BackupSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+
+# BackupSchema funciton
+function BackupAllSchema (){
+    echo "BackupSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    expdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=AllSchemas_${FILE_SUFFIX}.dump logfile=AllSchemas_${FILE_SUFFIX}.log schemas=$OWNER $PARALLEL
+    echo "BackupSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+
+# BackupDatabase funciton
+function BackupDatabase (){
+    echo "BackupDatabase Start Time: `date` " >> $DUMP_DIR/datapump.log
+    expdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=database_${FILE_SUFFIX}.dump logfile=database_${FILE_SUFFIX}.log full=y
+    echo "BackupDatabase Finish Time: `date` " >> $DUMP_DIR/datapump.log
+}
+
+# RestoreSchema funciton
+function RestoreSchema (){
+    echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    impdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=${OWNER}_${FILE_SUFFIX}.dump logfile=${OWNER}_${FILE_SUFFIX}.log schemas=$OWNER remap_schema=$OWNER:$OWNER
+    echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+# RestoreSchema funciton
+function RestoreAllSchema (){
+    echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    impdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=AllSchemas_${FILE_SUFFIX}.dump logfile=AllSchemas_${FILE_SUFFIX}.log schemas=$OWNER
+    echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+
+# RestoreDatabase funciton
+function RestoreDatabase (){
+    echo "RestoreDatabase Start Time: `date` " >> $DUMP_DIR/datapump.log
+    impdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME dumpfile=database_${FILE_SUFFIX}.dump logfile=database_${FILE_SUFFIX}.log full=y
+    echo "RestoreDatabase Finish Time: `date` " >> $DUMP_DIR/datapump.log
+}
+
+# RestoreSchema funciton
+function RestoreSchemaRemote (){
+    echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    impdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME logfile=${OWNER}_${FILE_SUFFIX}.log network_link=$DB_LINK schemas=$OWNER remap_schema=$OWNER:$OWNER
+    echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+
+# RestoreSchema funciton
+function RestoreAllSchemaRemote (){
+    echo "RestoreSchema Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    impdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME logfile=AllSchemas_${FILE_SUFFIX}.log network_link=$DB_LINK schemas=$OWNER
+    echo "RestoreSchema Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+
+# RestoreDatabase funciton
+function RestoreDatabaseRemote (){
+    echo "RestoreDatabase Start Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+    impdp \'\/ as sysdba\' directory=$DUMP_DIR_NAME logfile=${OWNER}_${FILE_SUFFIX}.log network_link=$DB_LINK full=y
+    echo "RestoreDatabase Finish Time: `date` OWNER: $OWNER" >> $DUMP_DIR/datapump.log
+}
+
+function DeleteExpiredFile () {
+    # Delete expired files
+    find $DUMP_DIR -name "*.dump" -mtime +$EXPIRED_TIME -exec rm {} \;
+    find $DUMP_DIR -name "*.log" -mtime +$EXPIRED_TIME -exec rm {} \;
+}
+
+if [[ "$#" == 0 ]]; then
+    echo "Invalid parameters, Please use '$0 help' for help!"
+    exit 1
+fi
+
+if [[ "$1" == "help" ]]; then
+    echo "Help: Usag of this script."
+    echo "======================================="
+    echo "Backup:  '$0 backup all/allinone/full/{assign_schema}' "
+    echo "Restore: '$0 resore all/allinone/full/{assign_schema} {remote}' "
+    exit 0
+fi
+
+if [[ "$PARALLE_NUM" != "" ]]; then
+    PARALLEL="parallel="$PARALLE_NUM
+fi
+
+if [[ "$1" == "backup" ]]; then
+    if [[ "$2" == "all" ]]; then
+        ALL_SCHEMA = `echo $ALL_SCHEMA|sed 's/,/ /g'`
+        for OWNER  in $ALL_SCHEMA
+        do
+            BackupSchema
+        done
+    elif [[ "$2" == "allinone" ]]; then
+        OWNER=$ALL_SCHEMA
+        BackupAllSchema
+    elif [[ "$2" == "full" ]]; then
+        BackupDatabase
+    else
+        OWNER=$2
+        BackupSchema
+    fi
+elif [[ "$1" == "restore" ]]; then
+    if [[ "$3" == "remote" ]]; then
+        if [[ "$2" == "all" ]]; then
+            ALL_SCHEMA = `echo $ALL_SCHEMA|sed 's/,/ /g'`
+            for OWNER  in $ALL_SCHEMA
+            do
+                RestoreSchemaRemote
+            done
+        elif [[ "$2" == "allinone" ]]; then
+            OWNER=$ALL_SCHEMA
+            RestoreAllSchemaRemote
+        elif [[ "$2" == "full" ]]; then
+            RestoreDatabaseRemote
+        else
+            OWNER=$2
+            RestoreSchemaRemote
+        fi
+    else
+        if [[ "$2" == "all" ]]; then
+            ALL_SCHEMA = `echo $ALL_SCHEMA|sed 's/,/ /g'`
+            for OWNER  in $ALL_SCHEMA
+            do
+                RestoreSchema
+            done
+        elif [[ "$2" == "allinone" ]]; then
+            OWNER=$ALL_SCHEMA
+            RestoreAllSchema
+        elif [[ "$2" == "full" ]]; then
+            RestoreDatabase
+        else
+            OWNER=$2
+            RestoreSchema
+        fi
+    fi
+else
+    echo "Invalid parameters, Please use '$0 help' for help!"
+    exit 1
+fi
+
+if [[ "$EXPIRED_TIME" = "" ]]; then
+    exit 0
+else
+    DeleteExpiredFile
+fi
+
+exit 0
+```
 #### 2.2 小机数据库（备份）
 
 **IP:** 59.215.241.27
