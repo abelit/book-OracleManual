@@ -182,6 +182,24 @@ CPU 7 runs at 4204 MHz
 Number Of Processors: 4
 ```
 
+**Memory: **
+
+```
+# lsdev -Cc memory 
+L2cache0 Available  L2 Cache
+mem0     Available  Memory
+# lsattr -El mem0 
+ksh: There is not enough space in the file system.
+ent_mem_cap          I/O memory entitlement in Kbytes           False
+goodsize       63968 Amount of usable physical memory in Mbytes False
+mem_exp_factor       Memory expansion factor                    False
+size           63968 Total amount of physical memory in Mbytes  False
+var_mem_weight       Variable memory capacity weight            False
+# bootinfo -r 
+ksh: There is not enough space in the file system.
+65503232
+```
+
 **IP:** 59.215.244.67/68
 
 **User:** root
