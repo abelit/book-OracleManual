@@ -161,6 +161,8 @@ SYS   DUMP           /data/dump_dir
 
 **服务器信息**
 
+**System:** AIX server02 1 6 00C71A624C00
+
 **IP:** 59.215.244.67/68
 
 **User:** root
@@ -209,7 +211,6 @@ SYS   DUMP           /data/dump_dir
 0 15 * * *  /usr/lib/ras/dumpcheck >/dev/null 2>&1
 55 23 * * * /var/perf/pm/bin/pmcfg  >/dev/null 2>&1     #Enable PM Data Collection
 0 1 * * * su - oracle -c "/home/oracle/exp_bak/backup_exp.sh >> /home/oracle/exp_bak/backup_exp.log 2>&1"
-
 ```
 
 * **数据库信息**
