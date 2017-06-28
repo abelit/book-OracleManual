@@ -167,6 +167,16 @@ SYS   DUMP           /data/dump_dir
 
 #### 1.4 站群数据库（备份）
 
+**Server: **
+
+**System:**
+
+**CPU:**
+
+**Memory:**
+
+**Disk:**
+
 **IP:** 10.10.10.40
 
 **User:** root
