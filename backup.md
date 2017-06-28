@@ -178,7 +178,8 @@ CPU 5 runs at 4204 MHz
 CPU 6 runs at 4204 MHz
 CPU 7 runs at 4204 MHz
 
-
+# prtconf|grep Processors
+Number Of Processors: 4
 ```
 
 **IP:** 59.215.244.67/68
