@@ -22,7 +22,7 @@
 
 **Memory:**
 
-**Disk:** 
+**Disk:**
 
 **IP:** 10.10.10.41
 
@@ -88,6 +88,16 @@ SYS   DUMP           /data/dump_dir
 #### 1.3 站群数据库
 
 * **服务器信息**
+
+**Server: **
+
+**System:**
+
+**CPU:**
+
+**Memory:**
+
+**Disk:**
 
 **IP:** 10.10.10.44
 
