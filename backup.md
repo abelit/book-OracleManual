@@ -161,6 +161,8 @@ SYS   DUMP           /data/dump_dir
 
 **服务器信息**
 
+**Server: **IBM P6 520
+
 **System:** AIX server02 1 6 00C71A624C00
 
 **IP:** 59.215.244.67/68
