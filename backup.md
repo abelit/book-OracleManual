@@ -161,11 +161,11 @@ SYS   DUMP           /data/dump_dir
 
 **服务器信息**
 
-**IP:** 59.215.244.67/68 
+**IP:** 59.215.244.67/68
 
 **User:** root
 
-**Password:** gzxx@323\#
+**Password:** sxxzx.0851
 
 **crontab: **
 
