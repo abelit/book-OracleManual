@@ -165,6 +165,22 @@ SYS   DUMP           /data/dump_dir
 
 **System:** AIX server02 1 6 00C71A624C00
 
+**CPU: **
+
+```
+# pmcycles -m
+CPU 0 runs at 4204 MHz
+CPU 1 runs at 4204 MHz
+CPU 2 runs at 4204 MHz
+CPU 3 runs at 4204 MHz
+CPU 4 runs at 4204 MHz
+CPU 5 runs at 4204 MHz
+CPU 6 runs at 4204 MHz
+CPU 7 runs at 4204 MHz
+
+
+```
+
 **IP:** 59.215.244.67/68
 
 **User:** root
